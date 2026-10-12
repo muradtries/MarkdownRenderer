@@ -4,5 +4,9 @@
 xcuserdata/
 DerivedData/
 .swiftpm/
-*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
 .netrc
+
+# Tuist: the Xcode projects and workspaces are generated from Project.swift
+*.xcodeproj
+*.xcworkspace
+Derived/

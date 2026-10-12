@@ -125,6 +125,10 @@ Add a `public var` with a default and a `///` comment to the right section of `M
 
 The arithmetic lives in `FadeCurve` and is tested in `FadeCurveTests`; `StreamingText.swift` only draws. If the fade gets longer, make sure `MarkdownStreamingOptions.arrivalRetention` still covers it — `MarkdownThemeTests` checks the defaults.
 
+## Example app and workspace
+
+`Project.swift`, `Workspace.swift` and `Tuist.swift` in the repository root describe the demo app (its sources are in `Example/`) and a workspace that holds it next to the package. Run `tuist generate` in the root to create `MarkdownRenderer.xcworkspace` and `MarkdownRendererExample.xcodeproj`; both are generated, git-ignored and never edited by hand. Change the manifests instead and generate again. The example depends on the package by product name only; the workspace's reference to the repository root is what resolves it. SwiftPM ignores all of this: a project that adds the package by URL gets only what `Package.swift` declares.
+
 ## Tests
 
 The package uses [Swift Testing](https://developer.apple.com/documentation/testing).
@@ -138,6 +142,8 @@ The package uses [Swift Testing](https://developer.apple.com/documentation/testi
 - **Rendering has its own benchmarks.** `RenderingBenchmarks` hosts a `MarkdownMessageView` in a window and times each flush of a stream (a long reply, an 80-row and a 14-column table, a short reply in a bubble, a relayout at a new width), and counts how often SwiftUI asked a block for its size. Set `MARKDOWN_BENCHMARK_PID_FILE` to a path and the suite writes its pid there before each scenario, so `sample <pid>` on the host can profile it.
 
 ### Running
+
+The tests run against `Package.swift`, not against the Tuist workspace: a package in a workspace gets a scheme without its test bundle. In Xcode, open `Package.swift` and test the `MarkdownRenderer` scheme. On the command line, `xcodebuild` in the repository root uses `Package.swift` as long as no `MarkdownRenderer.xcworkspace` has been generated there; once it has, `xcodebuild` picks the workspace, so pass the package's own workspace with `-workspace .swiftpm/xcode/package.xcworkspace` (Xcode creates it the first time it opens `Package.swift`).
 
 With [XcodeBuildMCP](https://xcodebuildmcp.com), using the package's own workspace:
 

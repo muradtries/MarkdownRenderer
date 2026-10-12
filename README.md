@@ -36,6 +36,17 @@ targets: [
 
 Or in Xcode: **File ▸ Add Package Dependencies…** and paste the URL.
 
+## Example app
+
+`Example/` holds a demo iOS app: a chat with streamed replies and a gallery of styles. Its Xcode project and the workspace that holds it next to the package are generated with [Tuist](https://tuist.dev), so they are not in the repository:
+
+```sh
+brew install tuist          # once
+tuist generate              # in the repository root; opens MarkdownRenderer.xcworkspace
+```
+
+Run the `MarkdownRendererExample` scheme. The workspace and project are only for working on this repository; adding the package to your app needs neither Tuist nor the example.
+
 ## Quick start
 
 **Streaming.** One parser per message; `append` each chunk, `finish` when the stream ends, hand the snapshot's blocks to the view.
